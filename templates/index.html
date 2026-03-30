@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DiabeatEase — Your advanced medically-aware AI assistant for diabetes management. Personalized meal plans, exercise, and routines.">
+    <title>DiabeatEase — AI Diabetes Care Assistant</title>
+    <link rel="icon" href="/static/images/logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="pulse-ring ring-1"></div>
+        <div class="pulse-ring ring-2"></div>
+        <div class="pulse-ring ring-3"></div>
+        <div class="floating-particle p1"></div>
+        <div class="floating-particle p2"></div>
+        <div class="floating-particle p3"></div>
+        <div class="floating-particle p4"></div>
+        <div class="floating-particle p5"></div>
+    </div>
+
+    <!-- Sidebar Overlay (Mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- App Container -->
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-wrapper">
+                    <div class="logo-icon">
+                        <span class="material-symbols-rounded">medical_services</span>
+                    </div>
+                    <div class="logo-text">
+                        <h1>DiabeatEase</h1>
+                        <span class="logo-subtitle">AI Care System</span>
+                    </div>
+                </div>
+                <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+                    <span class="material-symbols-rounded">close</span>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <span class="nav-section-title">Core Features</span>
+                    <button class="nav-item active" id="assessmentTabBtn">
+                        <span class="material-symbols-rounded">analytics</span>
+                        <span>Health Assessment</span>
+                    </button>
+                    <button class="nav-item" id="chatTabBtn">
+                        <span class="material-symbols-rounded">chat_bubble</span>
+                        <span>AI Chat Assistant</span>
+                    </button>
+                    <button class="nav-item" id="historyTabBtn">
+                        <span class="material-symbols-rounded">history</span>
+                        <span>Health History</span>
+                    </button>
+                </div>
+
+                <div class="nav-section">
+                    <span class="nav-section-title">Daily Tools</span>
+                    <button class="nav-item tip-btn" id="dailyTipBtn">
+                        <span class="material-symbols-rounded">lightbulb</span>
+                        <span>Daily Tip</span>
+                    </button>
+                    <button class="nav-item info-btn" data-topic="hba1c">
+                        <span class="material-symbols-rounded">science</span>
+                        <span>HbA1c Calculator</span>
+                    </button>
+                    <button class="nav-item info-btn" data-topic="foot_care">
+                        <span class="material-symbols-rounded">podiatry</span>
+                        <span>Foot Care 101</span>
+                    </button>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="disclaimer-mini">
+                    <span class="material-symbols-rounded">info</span>
+                    <p>Not a replacement for medical advice. Consult a doctor.</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-bar">
+                <button class="hamburger" id="hamburgerBtn">
+                    <span class="material-symbols-rounded">menu</span>
+                </button>
+                <div class="header-center">
+                    <div class="status-indicator">
+                        <span class="status-dot"></span>
+                        <span id="headerStatus">Medically Aware</span>
+                    </div>
+                </div>
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="material-symbols-rounded" id="themeIcon">dark_mode</span>
+                </button>
+            </header>
+
+            <!-- Views Container -->
+            <div class="view-container">
+                
+                <!-- Assessment View (Default) -->
+                <div class="view" id="assessmentView">
+                    <div class="view-header">
+                        <h2>Personal Health Assessment</h2>
+                        <p>Fill in your details for a personalized diabetes care analysis.</p>
+                    </div>
+
+                    <div class="assessment-grid">
+                        <form id="assessmentForm" class="glass-card form-container">
+                            <div class="form-row">
+                                <div class="form-input">
+                                    <label>Age</label>
+                                    <input type="number" id="ageInput" placeholder="Ex: 45" required>
+                                </div>
+                                <div class="form-input">
+                                    <label>Weight (kg)</label>
+                                    <input type="number" id="weightInput" placeholder="Ex: 75">
+                                </div>
+                                <div class="form-input">
+                                    <label>Height (cm)</label>
+                                    <input type="number" id="heightInput" placeholder="Ex: 170">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-input full">
+                                    <label>Sugar Level (mg/dL)</label>
+                                    <input type="number" id="sugarInput" placeholder="Ex: 120" required>
+                                </div>
+                                <div class="form-input full">
+                                    <label>Test Type</label>
+                                    <select id="testTypeSelect">
+                                        <option value="fasting">Fasting</option>
+                                        <option value="post_meal">Post-meal (2hr)</option>
+                                        <option value="random">Random</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-input full">
+                                    <label>Lifestyle Activity</label>
+                                    <select id="lifestyleSelect">
+                                        <option value="sedentary">Sedentary (Little/No exercise)</option>
+                                        <option value="moderate">Moderate (3-5 days/week)</option>
+                                        <option value="active">Active (6-7 days/week)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-input full">
+                                    <label>Current Medications (Optional)</label>
+                                    <input type="text" id="medsInput" placeholder="Ex: Metformin...">
+                                </div>
+                                <div class="form-input full">
+                                    <label>Current Symptoms (Optional)</label>
+                                    <input type="text" id="symptomsInput" placeholder="Ex: Thirst, Fatigue...">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="submit-btn" id="analyzeBtn">
+                                <span class="material-symbols-rounded">analytics</span>
+                                Analyze My Health
+                            </button>
+                        </form>
+
+                        <!-- Analysis Results -->
+                        <div id="resultsContainer" class="results-container hidden">
+                            <!-- Results inject here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat View -->
+                <div class="view hidden" id="chatView">
+                    <div class="chat-area" id="chatArea">
+                        <div class="messages-container" id="messagesContainer">
+                            <!-- Greetings injected here -->
+                        </div>
+                    </div>
+                    <div class="chat-input-row">
+                        <textarea id="chatInput" placeholder="Ask anything about your health..."></textarea>
+                        <button id="sendChatBtn"><span class="material-symbols-rounded">send</span></button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Error/Emergency Modal -->
+    <div id="emergencyModal" class="modal hidden">
+        <div class="modal-content glass-card emergency">
+            <span class="material-symbols-rounded err-icon">report_problem</span>
+            <h3 id="emergencyTitle">Emergency Alert</h3>
+            <p id="emergencyMsg"></p>
+            <button id="closeModal">I Understand</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
